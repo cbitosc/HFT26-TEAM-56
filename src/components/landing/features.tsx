@@ -1,74 +1,177 @@
+import type { ReactNode } from "react";
 import {
-  BarChart3,
-  CheckCheck,
-  FolderGit2,
-  Shield,
-  SlidersHorizontal,
-  Terminal,
-} from "lucide-react";
+  AssistantTranscript,
+  DifficultyLadder,
+  EvaluationPanel,
+  PortfolioScanPanel,
+  RunAnalytics,
+} from "@/components/landing/feature-panels";
 import { Reveal } from "@/components/landing/reveal";
 import { Section } from "@/components/landing/section";
-
-const features = [
-  {
-    icon: FolderGit2,
-    title: "Portfolio-driven assessment generation",
-    body: "Challenges are written from the projects and skills in your portfolio, not from a shared question bank.",
-  },
-  {
-    icon: SlidersHorizontal,
-    title: "Adaptive difficulty levels",
-    body: "Foundation, applied, and advanced tiers follow the depth of the work you claim.",
-  },
-  {
-    icon: Terminal,
-    title: "Real-time coding environment",
-    body: "Write and run solutions in the browser, in the languages your portfolio already uses.",
-  },
-  {
-    icon: CheckCheck,
-    title: "Deterministic code evaluation",
-    body: "The same submission is scored the same way every time, against tests tied to the task.",
-  },
-  {
-    icon: Shield,
-    title: "Guarded AI assistance",
-    body: "Help is available inside the assessment without handing you the solution.",
-  },
-  {
-    icon: BarChart3,
-    title: "Detailed performance analytics",
-    body: "A report of what you proved, where you slowed down, and how the result was reached.",
-  },
-];
+import { SectionHeader } from "@/components/landing/section-header";
+import { cn } from "@/lib/utils";
 
 export function Features() {
   return (
-    <Section id="features">
+    <Section id="features" padding="pt-16 pb-24 lg:pt-20 lg:pb-32">
       <Reveal>
-        <h2 className="max-w-xl text-3xl font-medium tracking-[-0.04em] text-balance sm:text-4xl lg:text-5xl lg:leading-[1.1]">
-          Built for the work, not the template.
-        </h2>
+        <SectionHeader
+          label="Features"
+          size="md"
+          layout="split"
+          title="What sits between your repository and the report."
+          description="The parts of Vetted that make a result something a developer can stand behind and a reviewer can check."
+        />
       </Reveal>
-      <div className="mt-14 grid grid-cols-1 gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
-        {features.map((feature) => (
-          <Reveal key={feature.title} className="h-full">
-            <article className="h-full bg-background p-7 transition-colors duration-200 hover:bg-card sm:p-8">
-              <feature.icon
-                className="size-4 text-primary"
-                aria-hidden="true"
-                strokeWidth={1.75}
-              />
-              <h3 className="mt-5 text-base font-medium tracking-[-0.02em]">
-                {feature.title}
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                {feature.body}
-              </p>
-            </article>
-          </Reveal>
-        ))}
+
+      <div className="mt-16 space-y-20 lg:mt-20 lg:space-y-28">
+        <Showcase
+          number="01"
+          label="Portfolio intelligence"
+          title="Reads the repositories, not the resume."
+          body="Vetted walks each repository's source, tests and history, then records the stack it runs on and the skills the code demonstrates. Every skill points back to the file that shows it."
+          facts={[
+            ["Reads", "source · tests · commit history"],
+            ["Skips", "forks · vendored and generated code"],
+            ["Records", "stack, skills and topic depth"],
+          ]}
+        >
+          <PortfolioScanPanel />
+        </Showcase>
+
+        <Showcase
+          reverse
+          number="02"
+          label="Deterministic evaluation"
+          title="The same submission earns the same score."
+          body="Every run is pinned to a runtime, a seed and a sandbox with no network. Replay it tomorrow, or let a reviewer replay it, and each check lands the same way."
+          facts={[
+            ["Runtime", "node 20.11 · vitest 1.6"],
+            ["Sandbox", "network off · 512 MB"],
+            ["Proof", "sha256 digest per run"],
+          ]}
+        >
+          <EvaluationPanel />
+        </Showcase>
       </div>
+
+      <Reveal className="mt-20 lg:mt-28">
+        <p className="type-label flex items-center gap-3 text-muted-foreground">
+          <span aria-hidden="true" className="h-px w-5 bg-border-strong" />
+          Also in every assessment
+        </p>
+        <div className="mt-6 grid gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-2 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:grid-rows-[auto_auto]">
+          <Supporting
+            className="md:col-span-2 lg:col-span-1 lg:row-span-2"
+            number="03"
+            title="Difficulty that follows the evidence"
+            body="The first task is pitched at how deeply a topic appears in your code. Each result decides the next tier, so nobody sits a test written for someone else."
+          >
+            <DifficultyLadder />
+          </Supporting>
+          <Supporting
+            number="04"
+            title="Guarded AI assistance"
+            body="An assistant can explain an error or a concept. It won't write the solution, and every hint is logged in the report."
+          >
+            <AssistantTranscript />
+          </Supporting>
+          <Supporting
+            number="05"
+            title="Performance analytics"
+            body="See how a solution converged: checks passed per run, time used, and where the score was won or lost."
+          >
+            <RunAnalytics />
+          </Supporting>
+        </div>
+      </Reveal>
     </Section>
+  );
+}
+
+function Showcase({
+  number,
+  label,
+  title,
+  body,
+  facts,
+  reverse = false,
+  children,
+}: {
+  number: string;
+  label: string;
+  title: string;
+  body: string;
+  facts: ReadonlyArray<readonly [string, string]>;
+  reverse?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <Reveal>
+      <article
+        className={cn(
+          "grid gap-8 border-t border-border pt-8 lg:gap-14 lg:pt-10",
+          reverse
+            ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,19rem)]"
+            : "lg:grid-cols-[minmax(0,17rem)_minmax(0,1fr)]",
+        )}
+      >
+        <div className={cn("max-w-xl", reverse && "lg:order-2")}>
+          <p className="type-label flex items-center gap-3 text-muted-foreground">
+            <span className="text-faint">{number}</span>
+            {label}
+          </p>
+          <h3 className="mt-5 text-2xl leading-[1.15] tracking-[-0.03em] text-balance sm:text-[1.75rem]">
+            {title}
+          </h3>
+          <p className="type-body mt-3 text-muted-foreground">{body}</p>
+          <dl className="mt-7 divide-y divide-border-subtle border-y border-border-subtle">
+            {facts.map(([term, detail]) => (
+              <div
+                key={term}
+                className="grid grid-cols-[4.5rem_minmax(0,1fr)] gap-3 py-2.5"
+              >
+                <dt className="text-[12px] text-faint">{term}</dt>
+                <dd className="font-mono text-[11.5px] text-foreground/80">
+                  {detail}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <div className={cn("min-w-0", reverse && "lg:order-1")}>
+          {children}
+        </div>
+      </article>
+    </Reveal>
+  );
+}
+
+function Supporting({
+  number,
+  title,
+  body,
+  className,
+  children,
+}: {
+  number: string;
+  title: string;
+  body: string;
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <article
+      className={cn("flex min-w-0 flex-col bg-background p-6 sm:p-7", className)}
+    >
+      <p className="font-mono text-[11px] text-faint">{number}</p>
+      <h3 className="mt-3 text-[17px] leading-snug font-medium tracking-[-0.02em]">
+        {title}
+      </h3>
+      <p className="type-body mt-2 max-w-[46ch] text-muted-foreground">
+        {body}
+      </p>
+      <div className="mt-6 flex-1">{children}</div>
+    </article>
   );
 }

@@ -2,18 +2,20 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/landing/reveal";
 import { Section } from "@/components/landing/section";
+import { SectionHeader } from "@/components/landing/section-header";
 
 export function FinalCta() {
   return (
-    <Section className="text-center">
+    <Section light="horizon" padding="pt-24 pb-28 lg:pt-32 lg:pb-40">
       <Reveal>
-        <h2 className="mx-auto max-w-3xl text-3xl font-medium tracking-[-0.04em] text-balance sm:text-4xl lg:text-5xl lg:leading-[1.1]">
-          Your skills deserve more than a generic test.
-        </h2>
-        <p className="mt-5 text-base text-muted-foreground sm:text-[17px]">
-          Show what you can actually build.
-        </p>
-        <div className="mt-9">
+        <SectionHeader
+          label="Get started"
+          size="xl"
+          align="center"
+          title="Bring a project. Leave with a result you can show."
+          description="Point Vetted at something you've built and take an assessment written for it."
+        />
+        <div className="mt-10 flex justify-center">
           <Button size="lg" asChild>
             <Link href="/get-started">Start your assessment</Link>
           </Button>

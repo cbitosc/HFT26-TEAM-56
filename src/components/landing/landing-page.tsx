@@ -1,3 +1,4 @@
+import { Atmosphere } from "@/components/landing/atmosphere";
 import { Features } from "@/components/landing/features";
 import { FinalCta } from "@/components/landing/final-cta";
 import { Footer } from "@/components/landing/footer";
@@ -8,7 +9,8 @@ import { Problem } from "@/components/landing/problem";
 
 export function LandingPage() {
   return (
-    <div className="page-clip flex flex-1 flex-col bg-background">
+    <div className="page-clip relative isolate flex flex-1 flex-col bg-background">
+      <Atmosphere />
       <Navbar />
       <main>
         <Hero />

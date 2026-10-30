@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/brand/wordmark";
+import { Container } from "@/components/landing/container";
 import { navLinks } from "@/components/landing/nav-links";
 
 export function Footer() {
   return (
-    <footer id="about" className="scroll-mt-20 border-t border-border">
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr]">
+    <footer id="about" className="scroll-mt-20 border-t border-border-subtle">
+      <Container className="grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <Link
             href="/"
@@ -13,15 +14,13 @@ export function Footer() {
           >
             <Wordmark />
           </Link>
-          <p className="mt-4 max-w-xs text-sm leading-6 text-muted-foreground">
-            Personalized technical assessments built from the projects,
-            skills, and experience you already have.
+          <p className="type-body mt-4 max-w-xs text-muted-foreground">
+            Technical assessments written from the code you&apos;ve already
+            shipped, and scored the same way every time.
           </p>
         </div>
         <div>
-          <p className="text-[11px] font-medium tracking-[0.14em] text-muted-foreground uppercase">
-            Product
-          </p>
+          <p className="type-label text-faint">Product</p>
           <ul className="mt-4 space-y-2.5">
             {navLinks
               .filter((link) => link.href !== "#about")
@@ -38,19 +37,17 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <p className="text-[11px] font-medium tracking-[0.14em] text-muted-foreground uppercase">
-            About
-          </p>
-          <p className="mt-4 max-w-xs text-sm leading-6 text-muted-foreground">
-            Vetted measures developers on the work they can actually do,
-            not on a generic test.
+          <p className="type-label text-faint">About</p>
+          <p className="type-body mt-4 max-w-xs text-muted-foreground">
+            Vetted is built for developers whose strongest evidence lives in
+            their repositories, and for the teams who want to read it.
           </p>
         </div>
-      </div>
+      </Container>
       <div className="border-t border-border">
-        <p className="mx-auto w-full max-w-6xl px-5 py-5 text-xs text-muted-foreground sm:px-8">
+        <Container className="type-annotation py-5 text-faint">
           © 2026 vetted.
-        </p>
+        </Container>
       </div>
     </footer>
   );

@@ -4,10 +4,23 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Pinned How it works story: wide and tall enough to hold the stage. */
+@custom-variant story {
+  @media (min-width: 64rem) and (min-height: 44rem) {
+    @slot;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-elevated: var(--elevated);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-faint: var(--faint);
+  --color-fail: var(--fail);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -48,39 +61,49 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/*
+ * Blue (--primary) is reserved for verified state, active selection,
+ * syntax keywords and the wordmark. Borders and headings stay neutral.
+ */
 :root {
   --radius: 0.5rem;
-  --background: #050608;
-  --foreground: #f2f4f7;
-  --card: #0d1015;
-  --card-foreground: #f2f4f7;
-  --elevated: #1b212b;
-  --popover: #1b212b;
-  --popover-foreground: #f2f4f7;
+  --background: #08090a;
+  --foreground: #f7f8f8;
+  --surface-1: #0f1011;
+  --surface-2: #16171a;
+  --elevated: #1c1d21;
+  --card: #0f1011;
+  --card-foreground: #f7f8f8;
+  --popover: #1c1d21;
+  --popover-foreground: #f7f8f8;
   --primary: #7896b5;
-  --primary-foreground: #050608;
-  --secondary: #141820;
-  --secondary-foreground: #f2f4f7;
-  --muted: #141820;
-  --muted-foreground: #929ba8;
-  --accent: #141820;
-  --accent-foreground: #f2f4f7;
+  --primary-foreground: #08090a;
+  --secondary: #16171a;
+  --secondary-foreground: #f7f8f8;
+  --muted: #16171a;
+  --muted-foreground: #8a8f98;
+  --faint: #73777f;
+  --accent: #16171a;
+  --accent-foreground: #f7f8f8;
   --destructive: #c46a6a;
-  --border: #252d38;
-  --input: #252d38;
+  --fail: #c46a6a;
+  --border: rgb(255 255 255 / 0.08);
+  --border-subtle: rgb(255 255 255 / 0.05);
+  --border-strong: rgb(255 255 255 / 0.12);
+  --input: rgb(255 255 255 / 0.08);
   --ring: #7896b5;
   --chart-1: #7896b5;
-  --chart-2: #929ba8;
-  --chart-3: #5c6672;
-  --chart-4: #3a4452;
-  --chart-5: #252d38;
-  --sidebar: #0d1015;
-  --sidebar-foreground: #f2f4f7;
+  --chart-2: #8a8f98;
+  --chart-3: #5d6168;
+  --chart-4: #34363b;
+  --chart-5: #1c1d21;
+  --sidebar: #0f1011;
+  --sidebar-foreground: #f7f8f8;
   --sidebar-primary: #7896b5;
-  --sidebar-primary-foreground: #050608;
-  --sidebar-accent: #141820;
-  --sidebar-accent-foreground: #f2f4f7;
-  --sidebar-border: #252d38;
+  --sidebar-primary-foreground: #08090a;
+  --sidebar-accent: #16171a;
+  --sidebar-accent-foreground: #f7f8f8;
+  --sidebar-border: rgb(255 255 255 / 0.08);
   --sidebar-ring: #7896b5;
 }
 
@@ -103,11 +126,174 @@
   h2,
   h3,
   h4 {
-    @apply font-semibold tracking-[-0.03em] text-foreground;
+    @apply font-medium tracking-[-0.03em] text-foreground;
   }
   ::selection {
     background: color-mix(in srgb, var(--primary) 32%, transparent);
     color: var(--foreground);
+  }
+}
+
+/*
+ * Type scale. Headings carry their size at the call site so sections can
+ * differ; these cover the recurring supporting roles.
+ */
+
+@utility type-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@utility type-lead {
+  font-size: 17px;
+  line-height: 1.6;
+  letter-spacing: -0.012em;
+  text-wrap: pretty;
+
+  @media (min-width: 40rem) {
+    font-size: 18px;
+  }
+}
+
+@utility type-body {
+  font-size: 14px;
+  line-height: 1.6;
+  letter-spacing: -0.006em;
+  text-wrap: pretty;
+}
+
+@utility type-annotation {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1rem;
+  letter-spacing: 0;
+}
+
+.page-clip {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.page-clip > main {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Atmosphere: one light source, grain, and the container column rules. */
+
+.hero-light {
+  background:
+    radial-gradient(
+      ellipse 62% 48% at 50% -6%,
+      rgb(120 150 181 / 0.11),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 40% 30% at 50% -4%,
+      rgb(247 248 248 / 0.035),
+      transparent 70%
+    );
+}
+
+/*
+ * Section lighting. Wide, low-alpha ellipses sized in px on the vertical
+ * axis so they keep their shape in sections of any height; the grain layer
+ * dithers them so the falloff doesn't band.
+ */
+
+.light-band {
+  mask-image: linear-gradient(to bottom, transparent, #000 280px);
+  background:
+    radial-gradient(
+      ellipse 70% 560px at 50% 260px,
+      rgb(120 150 181 / 0.06),
+      transparent 72%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent,
+      rgb(255 255 255 / 0.012) 520px,
+      rgb(255 255 255 / 0.012) calc(100% - 360px),
+      transparent
+    );
+}
+
+.light-stage {
+  background: radial-gradient(
+    ellipse 50% 58% at 66% 52%,
+    rgb(120 150 181 / 0.085),
+    transparent 70%
+  );
+}
+
+.light-horizon {
+  background:
+    radial-gradient(
+      ellipse 64% 78% at 50% 100%,
+      rgb(120 150 181 / 0.09),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 36% 36% at 50% 100%,
+      rgb(247 248 248 / 0.03),
+      transparent 70%
+    );
+}
+
+/* Container column rules: they surface below the navbar and fade out at the
+   foot of the page instead of running edge to edge. */
+.grid-columns {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    #000 240px,
+    #000 calc(100% - 320px),
+    transparent
+  );
+}
+
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.035;
+}
+
+/* Product showcase surface. */
+
+.product-frame {
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.06),
+    inset 0 1px 0 rgb(255 255 255 / 0.05),
+    0 40px 80px -24px rgb(0 0 0 / 0.8);
+}
+
+/* Hero product shot. Final transforms live in custom properties so the
+   entry animation can settle onto them at every breakpoint. */
+
+.hero-present {
+  --present-transform: none;
+  --present-from: translateY(16px);
+  transform: var(--present-transform);
+}
+
+@media (min-width: 1024px) {
+  .hero-present {
+    width: 1240px;
+    transform-origin: 0 0;
+    --present-transform: perspective(2000px) rotateX(18deg) rotateY(12deg)
+      rotateZ(-9deg);
+    --present-from: perspective(2000px) rotateX(30deg) rotateY(12deg)
+      rotateZ(-9deg) translateY(64px);
+    mask-image:
+      linear-gradient(to bottom, #000 78%, transparent 100%),
+      linear-gradient(to right, #000 72%, transparent 97%);
+    mask-composite: intersect;
   }
 }
 
@@ -119,6 +305,17 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes present-in {
+  from {
+    opacity: 0;
+    transform: var(--present-from);
+  }
+  to {
+    opacity: 1;
+    transform: var(--present-transform);
   }
 }
 
@@ -134,11 +331,31 @@
 @keyframes preview-swap {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(4px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes check-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes check-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -151,72 +368,40 @@
     animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
+  .hero-present {
+    animation: present-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+  }
+
   .preview-fill {
     transform-origin: left;
-    animation: preview-fill 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.85s both;
+    animation: preview-fill 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.9s both;
   }
 
   .preview-swap {
-    animation: preview-swap 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-}
-
-.page-clip {
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
-}
-
-.page-clip > main {
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
-}
-
-.hero-shell {
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
-}
-
-.hero-stage {
-  width: 100%;
-  max-width: none;
-  margin-top: 1.25rem;
-  padding: 0 0 3.5rem;
-  overflow: visible;
-}
-
-.hero-present {
-  width: 108vw;
-  max-width: none;
-  margin-left: calc(50% - 54vw);
-  transform-origin: top center;
-  transform: perspective(1400px) rotateX(3deg) rotateZ(-3deg) scale(1.01);
-}
-
-@media (min-width: 768px) {
-  .hero-stage {
-    margin-top: 0.5rem;
+    animation: preview-swap 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  .hero-present {
-    width: 128vw;
-    margin-left: calc(50% - 64vw);
-    transform: perspective(1500px) rotateX(5deg) rotateZ(-5deg) scale(1.03);
-  }
-}
-
-@media (min-width: 1024px) {
-  .hero-stage {
-    margin-top: 4.5rem;
-    padding-bottom: 7rem;
+  /* TestRun: results resolve one row at a time once the run starts. */
+  [data-run="armed"] .check-pending {
+    opacity: 1;
   }
 
-  .hero-present {
-    width: 150vw;
-    margin-left: calc(50% - 75vw);
-    transform: perspective(1600px) rotateX(8deg) rotateZ(-8deg) scale(1.05);
+  [data-run="armed"] .check-result,
+  [data-run="armed"] .check-meta {
+    opacity: 0;
+  }
+
+  [data-run="running"] .check-pending {
+    animation: check-out 0.2s ease-out var(--check-delay) both;
+  }
+
+  [data-run="running"] .check-result {
+    animation: check-in 0.35s cubic-bezier(0.22, 1, 0.36, 1)
+      var(--check-delay) both;
+  }
+
+  [data-run="running"] .check-meta {
+    animation: rise 0.35s ease-out var(--check-delay) both;
   }
 }
 
