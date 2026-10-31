@@ -1,4 +1,4 @@
-# Vetted Demo
+# Vetted
 
 ### Beyond the Résumé.
 
