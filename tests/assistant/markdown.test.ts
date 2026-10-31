@@ -53,5 +53,8 @@ describe("Vetted AI markdown", () => {
     expect(html("Use a **state mach", true)).toContain(">state mach</strong>");
     expect(html("Call `findOne", true)).toContain(">findOne</code>");
     expect(html("```ts\nconst a", true)).toContain("<pre");
+    expect(html("States like *pending*, *appr", true)).toContain("<em>appr</em>");
+    expect(html("- item one\n* item two", true)).not.toContain("<em>");
+    expect(html("Compute 2 * 3", true)).not.toContain("<em>");
   });
 });

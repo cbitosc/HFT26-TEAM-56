@@ -67,7 +67,9 @@ function TypedReply({ text, onTick, onDone }: { text: string; onTick: () => void
 
   return (
     <>
-      <span className="sr-only">{text}</span>
+      <div className="sr-only">
+        <Markdown text={text} />
+      </div>
       <div aria-hidden="true">
         <MessageText text={text.slice(0, shown)} caret />
       </div>
