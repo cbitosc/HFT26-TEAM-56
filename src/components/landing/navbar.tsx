@@ -2,7 +2,8 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
+import { AuthHint } from "@/components/auth/auth-hint";
 import { Wordmark } from "@/components/brand/wordmark";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/landing/container";
@@ -182,16 +183,22 @@ export function Navbar() {
           />
         </nav>
 
-        <div className="flex items-center justify-end gap-5">
+        <div className="flex items-center justify-end gap-4">
+          <ThemeToggle className="-mx-1.5" />
+          <AuthHint />
           <Link
             href="/login"
-            className="hidden rounded-sm text-[13px] text-muted-foreground transition-colors duration-150 outline-none hover:text-foreground focus-visible:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 sm:inline"
+            className="signed-out-only hidden rounded-sm text-[13px] text-muted-foreground transition-colors duration-150 outline-none hover:text-foreground focus-visible:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 sm:inline"
           >
             Sign in
           </Link>
-          <Button size="sm" className="h-8 px-3.5 text-[13px]" asChild>
-            <Link href="/dashboard" onClick={close}>
-              Get started
+          <Button size="sm" className="signed-out-only h-8 px-3 text-[13px]" asChild>
+            <Link href="/dashboard">Get started</Link>
+          </Button>
+          <Button size="sm" className="signed-in-only h-8 px-3 text-[13px]" asChild>
+            <Link href="/dashboard">
+              Dashboard
+              <ArrowRight aria-hidden="true" />
             </Link>
           </Button>
           <Button
@@ -258,12 +265,17 @@ export function Navbar() {
               })}
             </ul>
             <div className="mt-auto flex flex-col gap-3 pt-10">
-              <Button size="lg" asChild>
+              <Button size="lg" className="signed-in-only" asChild>
+                <Link href="/dashboard" onClick={close}>
+                  Go to dashboard
+                </Link>
+              </Button>
+              <Button size="lg" className="signed-out-only" asChild>
                 <Link href="/dashboard" onClick={close}>
                   Get started
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" asChild>
+              <Button variant="outline" size="lg" className="signed-out-only" asChild>
                 <Link href="/login" onClick={close}>
                   Sign in
                 </Link>

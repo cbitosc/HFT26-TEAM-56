@@ -157,6 +157,10 @@ function renderInline(text: string): ReactNode[] {
  */
 function closeOpenMarkers(text: string) {
   let result = text;
+  // A single * opening an italic on the last line (not a bullet, not 2 * 3).
+  const lastLine = result.slice(result.lastIndexOf("\n") + 1).replace(/^\s*\*\s/, "");
+  const singles = (lastLine.match(/(?<!\*)\*(?!\*)/g) ?? []).length;
+  if (singles % 2 && /(?<![\w*])\*(?![\s*])[^*]*$/.test(lastLine)) result += "*";
   if ((result.match(/\*\*/g) ?? []).length % 2) result += "**";
   if ((result.match(/~~/g) ?? []).length % 2) result += "~~";
   if ((result.match(/`/g) ?? []).length % 2) result += "`";

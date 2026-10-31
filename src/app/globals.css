@@ -398,6 +398,15 @@
   }
 }
 
+/* Signed-in visitors see Dashboard instead of Sign in / Get started on the
+   static landing page. data-auth is set before paint (src/lib/auth-hint.ts). */
+[data-auth="in"] .signed-out-only {
+  display: none !important;
+}
+:root:not([data-auth="in"]) .signed-in-only {
+  display: none !important;
+}
+
 /* Resizable panel widths. Saved values are set inline on <html> before
    first paint (src/lib/layout.ts) and take precedence over these. */
 :root {
