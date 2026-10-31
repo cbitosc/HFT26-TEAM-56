@@ -1,4 +1,4 @@
-# Vetted Hackathon
+# Vetted
 
 ### Beyond the Résumé.
 
