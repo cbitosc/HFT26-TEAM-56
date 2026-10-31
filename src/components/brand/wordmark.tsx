@@ -1,3 +1,4 @@
+import { LogoMark } from "@/components/brand/logo-mark";
 import { cn } from "@/lib/utils";
 
 type WordmarkProps = {
@@ -19,19 +20,29 @@ export function BrandMark({ className }: WordmarkProps) {
   );
 }
 
-export function Wordmark({ className }: WordmarkProps) {
+export function Wordmark({
+  className,
+  withMark = false,
+}: WordmarkProps & {
+  /** Show the check-mark V before the name, as the landing page does. */
+  withMark?: boolean;
+}) {
   return (
     <span
       className={cn(
-        "inline-flex items-baseline text-lg font-semibold tracking-[-0.04em] text-foreground",
+        "inline-flex items-center gap-[0.5em] text-lg font-semibold tracking-[-0.04em] text-foreground",
         className,
       )}
     >
-      vetted
-      <span
-        aria-hidden="true"
-        className="ml-[0.08em] inline-block size-[0.22em] rounded-[1px] bg-primary"
-      />
+      {withMark ? <LogoMark className="size-[1.4em]" /> : null}
+      <span className="inline-flex items-baseline">
+        vetted
+        {/* Crimson on the landing page (via --wordmark-dot); the app's primary elsewhere. */}
+        <span
+          aria-hidden="true"
+          className="ml-[0.08em] inline-block size-[0.22em] rounded-[1px] bg-[var(--wordmark-dot,var(--primary))]"
+        />
+      </span>
     </span>
   );
 }

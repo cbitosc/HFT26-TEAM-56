@@ -7,7 +7,7 @@ type SectionProps = {
   id?: string;
   children: ReactNode;
   className?: string;
-  light?: "band" | "horizon";
+  light?: "band" | "horizon" | "veil" | "drift";
   /** Replaces the default vertical padding; `cn` does not merge conflicts. */
   padding?: string;
 };
