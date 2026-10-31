@@ -9,16 +9,18 @@ export function typeLabel(question: Pick<SessionQuestion, "type" | "language">) 
   return question.language ? `${base} · ${LANGUAGE_LABEL[question.language as CodeLanguage] ?? question.language}` : base;
 }
 
+// Difficulty climbs in brand tones, as the landing page's Novice / Adept /
+// Master bars do: quiet grey, full ink, then crimson.
 const DIFFICULTY_STYLE: Record<string, string> = {
-  easy: "text-emerald-700 dark:text-emerald-400",
-  medium: "text-amber-700 dark:text-amber-400",
-  hard: "text-rose-700 dark:text-rose-400",
+  easy: "text-muted-foreground",
+  medium: "text-foreground",
+  hard: "text-primary",
 };
 
 const DIFFICULTY_DOT: Record<string, string> = {
-  easy: "bg-emerald-600 dark:bg-emerald-400",
-  medium: "bg-amber-600 dark:bg-amber-400",
-  hard: "bg-rose-600 dark:bg-rose-400",
+  easy: "bg-foreground/35",
+  medium: "bg-foreground/75",
+  hard: "bg-primary",
 };
 
 export function DifficultyBadge({ difficulty }: { difficulty: string }) {

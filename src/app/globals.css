@@ -73,8 +73,11 @@
 }
 
 /*
- * Blue (--primary) is reserved for verified state, active selection,
+ * The app shares the landing page's palette: black, white and one crimson.
+ * Crimson (--primary) is reserved for verified state, active selection,
  * syntax keywords and the wordmark. Borders and headings stay neutral.
+ * As on the landing page, failure is a neutral tone (with its own icon), so
+ * a pass and a fail never share a colour.
  *
  * The inline script in the root layout puts `.light` or `.dark` on <html>
  * before first paint. `:root` carries the light palette as the no-JS default.
@@ -83,116 +86,119 @@
 .light {
   color-scheme: light;
   --radius: 0.5rem;
-  --background: #f8fafc;
-  --foreground: #111318;
+  --background: #fafafa;
+  --foreground: #0b0a0a;
   --surface-1: #ffffff;
-  --surface-2: #f1f4f8;
+  --surface-2: #f4f3f3;
   --elevated: #ffffff;
   --card: #ffffff;
-  --card-foreground: #111318;
+  --card-foreground: #0b0a0a;
   --popover: #ffffff;
-  --popover-foreground: #111318;
-  --primary: #508cd5;
+  --popover-foreground: #0b0a0a;
+  --primary: #a83246;
   --primary-foreground: #ffffff;
-  --secondary: #eef1f5;
-  --secondary-foreground: #111318;
-  --muted: #f1f4f8;
-  --muted-foreground: #64748b;
-  --faint: #64748b;
-  --accent: #eef1f5;
-  --accent-foreground: #111318;
-  --destructive: #c03f3f;
-  --fail: #c03f3f;
-  --border: #e2e8f0;
-  --border-subtle: #edf1f6;
-  --border-strong: #cbd5e1;
-  --input: #e2e8f0;
-  --ring: #508cd5;
-  --chart-1: #508cd5;
-  --chart-2: #64748b;
-  --chart-3: #9aa0ab;
-  --chart-4: #cdd2da;
-  --chart-5: #e9edf2;
-  /* The sidebar is the one strongly coloured surface: brand blue (#508cd5)
-     taken down to a deep navy, in both themes. */
-  --canvas: #e4e9f0;
-  --sidebar: #1d3a5d;
-  --sidebar-foreground: #f8fafc;
-  --sidebar-primary: #8ab6ea;
-  --sidebar-primary-foreground: #111318;
-  --sidebar-accent: rgb(255 255 255 / 0.12);
-  --sidebar-accent-foreground: #f8fafc;
-  --sidebar-border: rgb(255 255 255 / 0.1);
-  --sidebar-ring: #8ab6ea;
-  --panel-shadow: 0 1px 2px rgb(17 19 24 / 0.04), 0 8px 24px -12px rgb(17 19 24 / 0.12);
-  --frame-shadow: 0 24px 48px -24px rgb(17 19 24 / 0.18);
+  --accent-strong: #a83246;
+  --secondary: #f1efef;
+  --secondary-foreground: #0b0a0a;
+  --muted: #f4f3f3;
+  --muted-foreground: #66605f;
+  --faint: #6f6969;
+  --accent: #f1efef;
+  --accent-foreground: #0b0a0a;
+  --destructive: #3d3839;
+  --fail: #3d3839;
+  --border: #e7e4e4;
+  --border-subtle: #efeded;
+  --border-strong: #d3cecf;
+  --input: #e7e4e4;
+  --ring: #a83246;
+  --chart-1: #a83246;
+  --chart-2: #66605f;
+  --chart-3: #a6a1a1;
+  --chart-4: #d3cecf;
+  --chart-5: #efeded;
+  /* The sidebar is the one strongly coloured surface: a deep crimson maroon, in
+     both themes. On it, accents turn white so they still stand out. */
+  --canvas: #ecebeb;
+  --sidebar: #7d2335;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ffffff;
+  --sidebar-primary-foreground: #7d2335;
+  --sidebar-accent: rgb(255 255 255 / 0.14);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgb(255 255 255 / 0.16);
+  --sidebar-ring: #ffffff;
+  --panel-shadow: 0 1px 2px rgb(11 10 10 / 0.04), 0 8px 24px -12px rgb(11 10 10 / 0.12);
+  --frame-shadow: 0 24px 48px -24px rgb(11 10 10 / 0.18);
   --grain-opacity: 0.02;
 }
 
 .dark {
   color-scheme: dark;
-  --background: #111318;
-  --foreground: #f8fafc;
-  --surface-1: #16181e;
-  --surface-2: #1c1f26;
-  --elevated: #22252d;
-  --card: #16181e;
-  --card-foreground: #f8fafc;
-  --popover: #22252d;
-  --popover-foreground: #f8fafc;
-  --primary: #508cd5;
-  --primary-foreground: #111318;
-  --secondary: #1c1f26;
-  --secondary-foreground: #f8fafc;
-  --muted: #1c1f26;
-  --muted-foreground: #8d939e;
-  --faint: #767c88;
-  --accent: #1c1f26;
-  --accent-foreground: #f8fafc;
-  --destructive: #c46a6a;
-  --fail: #c46a6a;
+  --background: #0b0a0a;
+  --foreground: #ffffff;
+  --surface-1: #121011;
+  --surface-2: #171416;
+  --elevated: #1d1a1c;
+  --card: #121011;
+  --card-foreground: #ffffff;
+  --popover: #1d1a1c;
+  --popover-foreground: #ffffff;
+  --primary: #c63e55;
+  --primary-foreground: #ffffff;
+  --accent-strong: #c63e55;
+  --secondary: #171416;
+  --secondary-foreground: #ffffff;
+  --muted: #171416;
+  --muted-foreground: #a6a1a1;
+  --faint: #858081;
+  --accent: #171416;
+  --accent-foreground: #ffffff;
+  --destructive: #e3dfdf;
+  --fail: #e3dfdf;
   --border: rgb(255 255 255 / 0.08);
   --border-subtle: rgb(255 255 255 / 0.05);
-  --border-strong: rgb(255 255 255 / 0.12);
+  --border-strong: rgb(255 255 255 / 0.13);
   --input: rgb(255 255 255 / 0.08);
-  --ring: #508cd5;
-  --chart-1: #508cd5;
-  --chart-2: #8d939e;
-  --chart-3: #5f6570;
-  --chart-4: #363a43;
-  --chart-5: #22252d;
-  --canvas: #0a0c10;
-  --sidebar: #1a2e4b;
-  --sidebar-foreground: #f8fafc;
-  --sidebar-primary: #8ab6ea;
-  --sidebar-primary-foreground: #111318;
-  --sidebar-accent: rgb(255 255 255 / 0.1);
-  --sidebar-accent-foreground: #f8fafc;
-  --sidebar-border: rgb(255 255 255 / 0.08);
-  --sidebar-ring: #8ab6ea;
-  --panel-shadow: 0 0 0 1px rgb(0 0 0 / 0.2);
+  --ring: #c63e55;
+  --chart-1: #c63e55;
+  --chart-2: #a6a1a1;
+  --chart-3: #615c5d;
+  --chart-4: #2e292b;
+  --chart-5: #1d1a1c;
+  --canvas: #050505;
+  --sidebar: #7d2335;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ffffff;
+  --sidebar-primary-foreground: #7d2335;
+  --sidebar-accent: rgb(255 255 255 / 0.14);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgb(255 255 255 / 0.16);
+  --sidebar-ring: #ffffff;
+  --panel-shadow: 0 0 0 1px rgb(0 0 0 / 0.3);
   --frame-shadow: 0 40px 80px -24px rgb(0 0 0 / 0.8);
   --grain-opacity: 0.035;
 }
 
 /*
- * Inside the navy sidebar every token flips to its on-navy value, so shared
+ * Inside the crimson sidebar every token flips to its on-crimson value, so shared
  * pieces (nav links, avatar, theme toggle, buttons) need no special styling.
  */
 .on-sidebar {
   color-scheme: dark;
   --background: var(--sidebar);
-  --foreground: #f8fafc;
-  --muted-foreground: rgb(226 232 240 / 0.74);
-  --faint: rgb(226 232 240 / 0.52);
+  --foreground: #ffffff;
+  --muted-foreground: rgb(255 255 255 / 0.82);
+  --faint: rgb(255 255 255 / 0.66);
   --primary: var(--sidebar-primary);
+  --accent-strong: var(--sidebar-primary);
   --ring: var(--sidebar-ring);
-  --border: rgb(255 255 255 / 0.1);
-  --border-subtle: rgb(255 255 255 / 0.06);
-  --border-strong: rgb(255 255 255 / 0.18);
-  --surface-1: rgb(255 255 255 / 0.05);
-  --surface-2: rgb(255 255 255 / 0.1);
-  --input: rgb(255 255 255 / 0.14);
+  --border: rgb(255 255 255 / 0.16);
+  --border-subtle: rgb(255 255 255 / 0.1);
+  --border-strong: rgb(255 255 255 / 0.26);
+  --surface-1: rgb(255 255 255 / 0.08);
+  --surface-2: rgb(255 255 255 / 0.14);
+  --input: rgb(255 255 255 / 0.2);
   background-color: var(--sidebar);
   color: var(--foreground);
 }

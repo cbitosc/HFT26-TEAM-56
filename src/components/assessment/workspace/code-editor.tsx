@@ -34,15 +34,15 @@ const defineThemes: BeforeMount = (monaco) => {
     inherit: true,
     rules: [],
     colors: {
-      "editor.background": "#16181e",
-      "editorGutter.background": "#16181e",
-      "editor.lineHighlightBackground": "#1c1f26",
+      "editor.background": "#121011",
+      "editorGutter.background": "#121011",
+      "editor.lineHighlightBackground": "#171416",
       "editor.lineHighlightBorder": "#00000000",
-      "editorLineNumber.foreground": "#4b5160",
-      "editorLineNumber.activeForeground": "#8d939e",
-      "editor.selectionBackground": "#508cd540",
-      "editorCursor.foreground": "#508cd5",
-      "editorWidget.background": "#22252d",
+      "editorLineNumber.foreground": "#4a4446",
+      "editorLineNumber.activeForeground": "#a6a1a1",
+      "editor.selectionBackground": "#c63e5540",
+      "editorCursor.foreground": "#c63e55",
+      "editorWidget.background": "#1d1a1c",
       "editorIndentGuide.background1": "#ffffff0d",
     },
   });
@@ -52,10 +52,10 @@ const defineThemes: BeforeMount = (monaco) => {
     rules: [],
     colors: {
       "editor.background": "#ffffff",
-      "editor.lineHighlightBackground": "#f1f4f8",
+      "editor.lineHighlightBackground": "#f6f5f5",
       "editor.lineHighlightBorder": "#00000000",
-      "editor.selectionBackground": "#508cd533",
-      "editorCursor.foreground": "#508cd5",
+      "editor.selectionBackground": "#a8324626",
+      "editorCursor.foreground": "#a83246",
     },
   });
   // The sandbox runs plain scripts; type-level complaints (missing lib

@@ -80,17 +80,12 @@ export function Hero() {
               <ArrowLink href="#how-it-works">See how it works</ArrowLink>
             </div>
           </div>
-
           <p
             className="type-display hero-rise text-[clamp(2.25rem,4vw,3.75rem)] [word-spacing:0.1em] whitespace-nowrap text-foreground lg:text-right"
             style={{ animationDelay: "420ms" }}
           >
             <span className="text-muted-foreground">/</span> Not a
             <span className="mt-[0.16em] flex items-end gap-[0.18em] lg:justify-end">
-              <span
-                aria-hidden="true"
-                className="mb-[0.1em] hidden h-[0.09em] w-[1.8em] bg-foreground sm:block"
-              />
               Question bank.
             </span>
           </p>

@@ -5,17 +5,17 @@ type WordmarkProps = {
   className?: string;
 };
 
-/** The wordmark's square on its own: the compact logo and the Vetted AI icon. */
+/** The check-mark V in a tile: the compact logo and the Vetted AI icon. */
 export function BrandMark({ className }: WordmarkProps) {
   return (
     <span
       aria-hidden="true"
       className={cn(
-        "inline-flex size-6 shrink-0 items-center justify-center rounded-md border border-border bg-surface-2",
+        "inline-flex size-6 shrink-0 items-center justify-center rounded-md border border-border bg-surface-2 text-foreground",
         className,
       )}
     >
-      <span className="size-[30%] rounded-[2px] bg-primary" />
+      <LogoMark withSquare className="size-[68%]" />
     </span>
   );
 }

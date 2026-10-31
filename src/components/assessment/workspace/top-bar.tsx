@@ -38,7 +38,7 @@ export function AssessmentTopBar({ stages, currentTier, stageMs, totalMs, compac
           aria-label="vetted. dashboard"
           className={cn("shrink-0 rounded-sm px-1 outline-none focus-visible:ring-2 focus-visible:ring-ring/50", compact && "lg:hidden")}
         >
-          <Wordmark />
+          <Wordmark withMark />
         </Link>
 
         {nav}

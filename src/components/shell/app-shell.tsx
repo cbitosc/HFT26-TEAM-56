@@ -29,7 +29,7 @@ export function AppShell({ children, account, recent }: AppShellProps) {
               href="/dashboard"
               className="rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
             >
-              <Wordmark />
+              <Wordmark withMark />
             </Link>
             <ThemeToggle className="ml-auto" />
           </div>

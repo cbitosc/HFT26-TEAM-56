@@ -51,7 +51,7 @@ function SidebarContent({ account, recent, onClose }: SidebarSlots & { onClose?:
           href="/dashboard"
           className="rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
         >
-          <Wordmark className="text-[20px]" />
+          <Wordmark withMark className="text-[20px]" />
         </Link>
         <div className="flex items-center gap-0.5">
           <ThemeToggle />
