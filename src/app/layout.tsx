@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Roboto_Flex } from "next/font/google";
 import { authHintScript } from "@/lib/auth-hint";
 import { panelWidthScript } from "@/lib/layout";
 import { themeScript } from "@/lib/theme";

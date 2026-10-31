@@ -183,8 +183,7 @@ export function Navbar() {
           />
         </nav>
 
-        <div className="flex items-center justify-end gap-4">
-          <ThemeToggle className="-mx-1.5" />
+        <div className="flex items-center justify-end gap-5">
           <AuthHint />
           <Link
             href="/login"
@@ -192,8 +191,10 @@ export function Navbar() {
           >
             Sign in
           </Link>
-          <Button size="sm" className="signed-out-only h-8 px-3 text-[13px]" asChild>
-            <Link href="/dashboard">Get started</Link>
+          <Button size="sm" className="signed-out-only h-8 px-3.5 text-[13px]" asChild>
+            <Link href="/dashboard" onClick={close}>
+              Get started
+            </Link>
           </Button>
           <Button size="sm" className="signed-in-only h-8 px-3 text-[13px]" asChild>
             <Link href="/dashboard">

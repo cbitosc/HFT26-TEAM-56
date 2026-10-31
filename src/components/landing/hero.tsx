@@ -22,35 +22,46 @@ const topics = [
 
 export function Hero() {
   return (
-    <section aria-labelledby="hero-title">
-      <Container className="pt-20 sm:pt-28 lg:pt-32">
-        <h1
-          id="hero-title"
-          className="hero-rise text-[clamp(2.75rem,6vw,5rem)] leading-[1.02] font-medium tracking-[-0.045em] text-balance"
-        >
-          Your portfolio tells a story.{" "}
-          <br className="hidden sm:block" />
-          Let&apos;s put it to the test.
-        </h1>
-        <p
-          className="hero-rise mt-6 max-w-[34rem] text-[17px] leading-[1.6] text-muted-foreground"
-          style={{ animationDelay: "80ms" }}
-        >
-          Move beyond generic coding tests. Vetted builds personalized
-          technical assessments around your real projects, skills and
-          experience.
-        </p>
-        <div
-          className="hero-rise mt-9 flex flex-wrap items-center gap-x-6 gap-y-4"
-          style={{ animationDelay: "160ms" }}
-        >
-          <Button size="lg" className="signed-out-only h-10 px-5" asChild>
-            <Link href="/dashboard">Get started</Link>
-          </Button>
-          <Button size="lg" className="signed-in-only h-10 px-5" asChild>
-            <Link href="/dashboard">Go to dashboard</Link>
-          </Button>
-          <ArrowLink href="#how-it-works">See how it works</ArrowLink>
+    <section
+      aria-labelledby="hero-title"
+      className="relative flex min-h-[calc(100svh-3.5rem)] flex-col"
+    >
+      <Container className="grid flex-1 grid-rows-[1fr_auto] pt-10 pb-10 lg:pt-12 lg:pb-12">
+        <div className="grid items-center gap-y-4 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-x-8">
+          <h1
+            id="hero-title"
+            className="type-display relative z-10 text-[clamp(5.5rem,17vw,14rem)] text-foreground"
+          >
+            <span className="sr-only">Prove what you can build.</span>
+            <span aria-hidden="true" className="block pt-[0.06em] [overflow-x:visible] [overflow-y:clip]">
+              <span className="line-in block">
+                <KineticWord text="Prove" />
+              </span>
+            </span>
+            <span
+              aria-hidden="true"
+              className="hero-rise my-[0.07em] block pl-[0.04em] text-[max(0.17em,1.125rem)] leading-none [word-spacing:0.12em] text-accent-text"
+              style={{ animationDelay: "200ms" }}
+            >
+              what you can
+            </span>
+            <span aria-hidden="true" className="block pb-[0.03em] [overflow-x:visible] [overflow-y:clip]">
+              <span
+                className="line-in block text-accent-strong"
+                style={{ animationDelay: "120ms" }}
+              >
+                <KineticWord text="Build." />
+              </span>
+            </span>
+          </h1>
+
+          <div className="relative -mt-6 lg:mt-0">
+            <HeroHandoff>
+              <div className="mx-auto aspect-square w-full max-w-[17rem] sm:max-w-[22rem] lg:max-w-[30rem]">
+                <HeroOrb />
+              </div>
+            </HeroHandoff>
+          </div>
         </div>
 
         <div className="mt-8 flex flex-col gap-10 lg:mt-4 lg:flex-row lg:items-end lg:justify-between">
@@ -60,8 +71,11 @@ export function Hero() {
               you&apos;ve actually built.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
-              <Button size="lg" className="h-10 px-5" asChild>
+              <Button size="lg" className="signed-out-only h-10 px-5" asChild>
                 <Link href="/dashboard">Get started</Link>
+              </Button>
+              <Button size="lg" className="signed-in-only h-10 px-5" asChild>
+                <Link href="/dashboard">Go to dashboard</Link>
               </Button>
               <ArrowLink href="#how-it-works">See how it works</ArrowLink>
             </div>
