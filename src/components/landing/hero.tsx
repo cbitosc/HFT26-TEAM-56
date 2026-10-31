@@ -29,7 +29,7 @@ export function Hero() {
           style={{ animationDelay: "160ms" }}
         >
           <Button size="lg" className="h-10 px-5" asChild>
-            <Link href="/get-started">Get started</Link>
+            <Link href="/dashboard">Get started</Link>
           </Button>
           <ArrowLink href="#how-it-works">See how it works</ArrowLink>
         </div>

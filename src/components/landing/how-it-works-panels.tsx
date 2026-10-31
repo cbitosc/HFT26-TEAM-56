@@ -56,7 +56,7 @@ function Meter({ ratio, active = true }: { ratio: number; active?: boolean }) {
   return (
     <span
       aria-hidden="true"
-      className="block h-[3px] overflow-hidden rounded-full bg-white/[0.06]"
+      className="block h-[3px] overflow-hidden rounded-full bg-foreground/[0.06]"
     >
       <span
         className="block h-full origin-left rounded-full bg-foreground/55 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
@@ -89,7 +89,7 @@ export function PortfolioPanel({ className }: PanelProps) {
                   aria-current={selected ? "true" : undefined}
                   className={cn(
                     "flex items-baseline justify-between gap-3 rounded-md px-2 py-1.5",
-                    selected ? "bg-white/[0.055]" : "",
+                    selected ? "bg-foreground/[0.055]" : "",
                   )}
                 >
                   <span className="min-w-0">

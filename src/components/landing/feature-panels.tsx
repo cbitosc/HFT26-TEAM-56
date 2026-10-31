@@ -6,6 +6,8 @@
  */
 
 import { useState } from "react";
+import { Lock } from "lucide-react";
+import { BrandMark } from "@/components/brand/wordmark";
 import {
   DepthBars,
   SectionLabel,
@@ -78,8 +80,8 @@ export function PortfolioScanPanel({ className }: { className?: string }) {
                       "relative grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-4 rounded-md px-2.5 py-2 text-left outline-none transition-colors duration-150 @[480px]:grid-cols-[minmax(0,10rem)_minmax(0,1fr)_auto] @[640px]:px-3.5",
                       "focus-visible:ring-2 focus-visible:ring-ring/50",
                       isSelected
-                        ? "bg-white/[0.055]"
-                        : "hover:bg-white/[0.025]",
+                        ? "bg-foreground/[0.055]"
+                        : "hover:bg-foreground/[0.025]",
                     )}
                   >
                     <span
@@ -286,7 +288,7 @@ export function DifficultyLadder() {
               key={tier.id}
               className={cn(
                 "grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-3 px-3.5 py-3",
-                current && "bg-white/[0.035]",
+                current && "bg-foreground/[0.035]",
               )}
             >
               <DepthBars depth={tier.depth} selected={current} />
@@ -325,7 +327,7 @@ export function DifficultyLadder() {
       </dl>
       <p className="type-annotation mt-3 flex gap-2 text-faint">
         <span aria-hidden="true">↳</span>
-        Foundation passed 5 of 5 in 18 min · next task raised to Applied
+        Novice passed 5 of 5 in 18 min · next task raised to Adept
       </p>
     </div>
   );
@@ -337,42 +339,59 @@ const ROLE_LABEL = {
   guard: "guard",
 } as const;
 
+/** The Vetted AI sidebar's conversation, as the product draws it. */
 export function AssistantTranscript() {
   return (
     <div className="overflow-hidden rounded-lg border border-border-subtle bg-surface-1">
-      <div className="flex h-8 items-center justify-between gap-3 border-b border-border-subtle px-3 font-mono text-[11px] text-faint">
-        <span>assistant · hints only</span>
-        <span className="tabular-nums">
+      <div className="flex h-10 items-center gap-2 border-b border-border-subtle px-3">
+        <BrandMark className="size-5 rounded-[5px]" />
+        <span className="min-w-0 flex-1">
+          <span className="block text-[12px] leading-4 font-medium text-foreground">
+            Vetted AI
+          </span>
+          <span className="block truncate text-[11px] leading-4 text-muted-foreground">
+            Helping with Question 6
+          </span>
+        </span>
+        <span className="shrink-0 font-mono text-[11px] text-faint tabular-nums">
           {previewAssistant.used} of {previewAssistant.limit} hints
         </span>
       </div>
-      <ul className="space-y-2.5 p-3">
-        {previewAssistant.messages.map((message, index) => (
-          <li
-            key={index}
-            className={cn(
-              "grid grid-cols-[2.75rem_minmax(0,1fr)] gap-2 text-[12.5px] leading-5",
-              message.role === "guard" &&
-                "rounded-md border border-dashed border-border-strong px-2 py-1.5",
-            )}
-          >
-            <span className="pt-px font-mono text-[11px] text-faint">
-              {ROLE_LABEL[message.role]}
-            </span>
-            <span
-              className={
-                message.role === "you"
-                  ? "text-foreground/90"
-                  : message.role === "hint"
-                    ? "text-muted-foreground"
-                    : "text-foreground/80"
-              }
-            >
-              {message.text}
-            </span>
-          </li>
-        ))}
-      </ul>
+      <ol className="space-y-3 p-3 text-[12.5px] leading-5">
+        {previewAssistant.messages.map((message, index) =>
+          message.role === "you" ? (
+            <li key={index} className="flex justify-end">
+              <p className="max-w-[88%] rounded-lg bg-surface-2 px-2.5 py-1.5 text-foreground">
+                <span className="sr-only">{ROLE_LABEL[message.role]}: </span>
+                {message.text}
+              </p>
+            </li>
+          ) : (
+            <li key={index}>
+              <p className="flex items-center gap-1.5 text-[11px] text-faint">
+                <BrandMark className="size-3.5 rounded-[3px]" />
+                Vetted AI
+                {message.role === "guard" ? (
+                  <span className="text-faint">· {ROLE_LABEL[message.role]}</span>
+                ) : null}
+              </p>
+              <p
+                className={cn(
+                  "mt-1",
+                  message.role === "guard"
+                    ? "flex gap-1.5 text-muted-foreground"
+                    : "text-foreground/85",
+                )}
+              >
+                {message.role === "guard" ? (
+                  <Lock className="mt-1 size-3 shrink-0" aria-hidden="true" />
+                ) : null}
+                {message.text}
+              </p>
+            </li>
+          ),
+        )}
+      </ol>
     </div>
   );
 }
@@ -401,7 +420,7 @@ export function RunAnalytics() {
               </span>
               <span
                 aria-hidden="true"
-                className="block h-[5px] overflow-hidden rounded-full bg-white/[0.06]"
+                className="block h-[5px] overflow-hidden rounded-full bg-foreground/[0.06]"
               >
                 <span
                   className={cn(

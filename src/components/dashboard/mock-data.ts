@@ -36,19 +36,6 @@ export const previewCandidate = {
   ],
 } as const;
 
-export const previewStages = [
-  { id: "portfolio", label: "Portfolio", state: "done" },
-  { id: "challenge", label: "Challenge", state: "current" },
-  { id: "review", label: "Review", state: "upcoming" },
-] as const;
-
-export const previewActivity = [
-  { id: "run-3", title: "Run 3 · shortest-path.ts", meta: "6 of 7 checks", time: "2m" },
-  { id: "run-2", title: "Run 2 · shortest-path.ts", meta: "4 of 7 checks", time: "9m" },
-  { id: "pass-1", title: "Passed burst-count.ts", meta: "5 of 5 checks", time: "31m" },
-  { id: "scan", title: "Portfolio analysed", meta: "6 projects · 5 skills", time: "1h" },
-] as const;
-
 export const previewPortfolio = {
   analysed: "1h ago",
   projects: [
@@ -232,7 +219,7 @@ export const previewRunHistory = [
 export const previewTiers: readonly PreviewTier[] = [
   {
     id: "foundation",
-    label: "Foundation",
+    label: "Novice",
     summary: "Sliding window over logs",
     minutes: 25,
     depth: 1,
@@ -263,7 +250,7 @@ export const previewTiers: readonly PreviewTier[] = [
   },
   {
     id: "applied",
-    label: "Applied",
+    label: "Adept",
     summary: "Shortest path on a grid",
     minutes: 40,
     depth: 2,
@@ -305,7 +292,7 @@ export const previewTiers: readonly PreviewTier[] = [
   },
   {
     id: "advanced",
-    label: "Advanced",
+    label: "Master",
     summary: "Concurrent read-through cache",
     minutes: 55,
     depth: 3,

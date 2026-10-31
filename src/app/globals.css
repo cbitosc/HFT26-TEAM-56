@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* Pinned How it works story: wide and tall enough to hold the stage. */
 @custom-variant story {
@@ -31,6 +31,7 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
+  --color-canvas: var(--canvas);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
@@ -64,52 +65,338 @@
 /*
  * Blue (--primary) is reserved for verified state, active selection,
  * syntax keywords and the wordmark. Borders and headings stay neutral.
+ *
+ * The inline script in the root layout puts `.light` or `.dark` on <html>
+ * before first paint. `:root` carries the light palette as the no-JS default.
  */
-:root {
+:root,
+.light {
+  color-scheme: light;
   --radius: 0.5rem;
-  --background: #08090a;
-  --foreground: #f7f8f8;
-  --surface-1: #0f1011;
-  --surface-2: #16171a;
-  --elevated: #1c1d21;
-  --card: #0f1011;
-  --card-foreground: #f7f8f8;
-  --popover: #1c1d21;
-  --popover-foreground: #f7f8f8;
-  --primary: #7896b5;
-  --primary-foreground: #08090a;
-  --secondary: #16171a;
-  --secondary-foreground: #f7f8f8;
-  --muted: #16171a;
-  --muted-foreground: #8a8f98;
-  --faint: #73777f;
-  --accent: #16171a;
-  --accent-foreground: #f7f8f8;
+  --background: #f8fafc;
+  --foreground: #111318;
+  --surface-1: #ffffff;
+  --surface-2: #f1f4f8;
+  --elevated: #ffffff;
+  --card: #ffffff;
+  --card-foreground: #111318;
+  --popover: #ffffff;
+  --popover-foreground: #111318;
+  --primary: #508cd5;
+  --primary-foreground: #ffffff;
+  --secondary: #eef1f5;
+  --secondary-foreground: #111318;
+  --muted: #f1f4f8;
+  --muted-foreground: #64748b;
+  --faint: #64748b;
+  --accent: #eef1f5;
+  --accent-foreground: #111318;
+  --destructive: #c03f3f;
+  --fail: #c03f3f;
+  --border: #e2e8f0;
+  --border-subtle: #edf1f6;
+  --border-strong: #cbd5e1;
+  --input: #e2e8f0;
+  --ring: #508cd5;
+  --chart-1: #508cd5;
+  --chart-2: #64748b;
+  --chart-3: #9aa0ab;
+  --chart-4: #cdd2da;
+  --chart-5: #e9edf2;
+  /* The sidebar is the one strongly coloured surface: brand blue (#508cd5)
+     taken down to a deep navy, in both themes. */
+  --canvas: #e4e9f0;
+  --sidebar: #1d3a5d;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #8ab6ea;
+  --sidebar-primary-foreground: #111318;
+  --sidebar-accent: rgb(255 255 255 / 0.12);
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: rgb(255 255 255 / 0.1);
+  --sidebar-ring: #8ab6ea;
+  --panel-shadow: 0 1px 2px rgb(17 19 24 / 0.04), 0 8px 24px -12px rgb(17 19 24 / 0.12);
+  --frame-shadow: 0 24px 48px -24px rgb(17 19 24 / 0.18);
+  --grain-opacity: 0.02;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #111318;
+  --foreground: #f8fafc;
+  --surface-1: #16181e;
+  --surface-2: #1c1f26;
+  --elevated: #22252d;
+  --card: #16181e;
+  --card-foreground: #f8fafc;
+  --popover: #22252d;
+  --popover-foreground: #f8fafc;
+  --primary: #508cd5;
+  --primary-foreground: #111318;
+  --secondary: #1c1f26;
+  --secondary-foreground: #f8fafc;
+  --muted: #1c1f26;
+  --muted-foreground: #8d939e;
+  --faint: #767c88;
+  --accent: #1c1f26;
+  --accent-foreground: #f8fafc;
   --destructive: #c46a6a;
   --fail: #c46a6a;
   --border: rgb(255 255 255 / 0.08);
   --border-subtle: rgb(255 255 255 / 0.05);
   --border-strong: rgb(255 255 255 / 0.12);
   --input: rgb(255 255 255 / 0.08);
-  --ring: #7896b5;
-  --chart-1: #7896b5;
-  --chart-2: #8a8f98;
-  --chart-3: #5d6168;
-  --chart-4: #34363b;
-  --chart-5: #1c1d21;
-  --sidebar: #0f1011;
-  --sidebar-foreground: #f7f8f8;
-  --sidebar-primary: #7896b5;
-  --sidebar-primary-foreground: #08090a;
-  --sidebar-accent: #16171a;
-  --sidebar-accent-foreground: #f7f8f8;
+  --ring: #508cd5;
+  --chart-1: #508cd5;
+  --chart-2: #8d939e;
+  --chart-3: #5f6570;
+  --chart-4: #363a43;
+  --chart-5: #22252d;
+  --canvas: #0a0c10;
+  --sidebar: #1a2e4b;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #8ab6ea;
+  --sidebar-primary-foreground: #111318;
+  --sidebar-accent: rgb(255 255 255 / 0.1);
+  --sidebar-accent-foreground: #f8fafc;
   --sidebar-border: rgb(255 255 255 / 0.08);
-  --sidebar-ring: #7896b5;
+  --sidebar-ring: #8ab6ea;
+  --panel-shadow: 0 0 0 1px rgb(0 0 0 / 0.2);
+  --frame-shadow: 0 40px 80px -24px rgb(0 0 0 / 0.8);
+  --grain-opacity: 0.035;
+}
+
+/*
+ * Inside the navy sidebar every token flips to its on-navy value, so shared
+ * pieces (nav links, avatar, theme toggle, buttons) need no special styling.
+ */
+.on-sidebar {
+  color-scheme: dark;
+  --background: var(--sidebar);
+  --foreground: #f8fafc;
+  --muted-foreground: rgb(226 232 240 / 0.74);
+  --faint: rgb(226 232 240 / 0.52);
+  --primary: var(--sidebar-primary);
+  --ring: var(--sidebar-ring);
+  --border: rgb(255 255 255 / 0.1);
+  --border-subtle: rgb(255 255 255 / 0.06);
+  --border-strong: rgb(255 255 255 / 0.18);
+  --surface-1: rgb(255 255 255 / 0.05);
+  --surface-2: rgb(255 255 255 / 0.1);
+  --input: rgb(255 255 255 / 0.14);
+  background-color: var(--sidebar);
+  color: var(--foreground);
+}
+
+/*
+ * Motion. Two curves: a long expo ease-out for things arriving and a short
+ * ease-in for things leaving, so closing never feels slower than opening.
+ * Only transform and opacity animate. With reduced motion the durations
+ * collapse to 1ms, so end events (which close panels) still fire.
+ */
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-in: cubic-bezier(0.5, 0, 0.75, 0);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.965);
+  }
+}
+@keyframes dialog-out {
+  to {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+}
+@keyframes drawer-in-left {
+  from {
+    transform: translateX(calc(-100% - 16px));
+  }
+}
+@keyframes drawer-out-left {
+  to {
+    transform: translateX(calc(-100% - 16px));
+  }
+}
+@keyframes sheet-in-right {
+  from {
+    transform: translateX(calc(100% + 16px));
+  }
+}
+@keyframes sheet-out-right {
+  to {
+    transform: translateX(calc(100% + 16px));
+  }
+}
+@keyframes dock-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+@keyframes item-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+}
+@keyframes tip-in {
+  from {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+}
+
+.motion-overlay[data-state="open"] {
+  animation: fade-in 240ms var(--ease-out);
+}
+.motion-overlay[data-state="closed"] {
+  animation: fade-out 180ms var(--ease-in) forwards;
+}
+.motion-dialog[data-state="open"] {
+  animation: dialog-in 320ms var(--ease-out);
+}
+.motion-dialog[data-state="closed"] {
+  animation: dialog-out 150ms var(--ease-in) forwards;
+}
+.motion-drawer-left[data-state="open"] {
+  animation: drawer-in-left 420ms var(--ease-drawer);
+}
+.motion-drawer-left[data-state="closed"] {
+  animation: drawer-out-left 220ms var(--ease-in) forwards;
+}
+/* Drawer contents follow the panel in, one row after another. */
+.motion-drawer-left[data-state="open"] .motion-stagger > * {
+  animation: item-in 360ms var(--ease-out) both;
+  animation-delay: calc(90ms + var(--i, 0) * 28ms);
+}
+.motion-tip[data-state="delayed-open"],
+.motion-tip[data-state="instant-open"] {
+  animation: tip-in 160ms var(--ease-out);
+}
+
+/* Vetted AI as an overlay, below xl. */
+@media (max-width: 79.999rem) {
+  .motion-sheet-right[data-state="open"] {
+    animation: sheet-in-right 420ms var(--ease-drawer);
+  }
+  .motion-sheet-right[data-state="closed"] {
+    animation: sheet-out-right 220ms var(--ease-in) forwards;
+  }
+}
+
+/* Vetted AI docked, from xl: the column eases open and the panel slides in. */
+@media (min-width: 80rem) {
+  .motion-dock[data-animating] {
+    transition: width 380ms var(--ease-drawer);
+  }
+  .motion-dock[data-animating][data-dock="closed"] {
+    transition-duration: 260ms;
+    transition-timing-function: var(--ease-in);
+  }
+  .motion-dock[data-animating][data-dock="open"] > aside {
+    animation: dock-in 420ms var(--ease-out);
+  }
+  .motion-dock[data-dock="closed"] > aside {
+    opacity: 0;
+    transition: opacity 140ms var(--ease-in);
+  }
+}
+
+/* Vetted AI typing out a reply: a slim brand caret at the end of the text. */
+.typing-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 2px;
+  border-radius: 1px;
+  background: var(--primary);
+  vertical-align: -0.17em;
+  animation: caret-blink 1s steps(1, end) 0.5s infinite;
+}
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Waiting for a reply: three dots brighten one after another. */
+.thinking-dots {
+  display: inline-flex;
+  gap: 3px;
+}
+.thinking-dots > span {
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: currentColor;
+  opacity: 0.25;
+  animation: thinking-dot 1.2s var(--ease-out) infinite;
+}
+.thinking-dots > span:nth-child(2) {
+  animation-delay: 0.16s;
+}
+.thinking-dots > span:nth-child(3) {
+  animation-delay: 0.32s;
+}
+@keyframes thinking-dot {
+  30% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+  60% {
+    opacity: 0.25;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typing-caret,
+  .thinking-dots > span {
+    animation: none;
+  }
+  .thinking-dots > span {
+    opacity: 0.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-overlay,
+  .motion-dialog,
+  .motion-drawer-left,
+  .motion-drawer-left .motion-stagger > *,
+  .motion-sheet-right,
+  .motion-tip,
+  .motion-dock,
+  .motion-dock > aside {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+/* Resizable panel widths. Saved values are set inline on <html> before
+   first paint (src/lib/layout.ts) and take precedence over these. */
+:root {
+  --sidebar-width: 320px;
+  --assistant-width: 340px;
 }
 
 @layer base {
   html {
-    color-scheme: dark;
     overflow-x: clip;
     overflow-y: auto;
   }
@@ -173,6 +460,13 @@
   letter-spacing: 0;
 }
 
+/* App surfaces: thin, quiet scrollbars inside panels. */
+@utility scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--foreground) 14%, transparent)
+    transparent;
+}
+
 .page-clip {
   width: 100%;
   min-width: 0;
@@ -191,12 +485,12 @@
   background:
     radial-gradient(
       ellipse 62% 48% at 50% -6%,
-      rgb(120 150 181 / 0.11),
+      color-mix(in srgb, var(--primary) 11%, transparent),
       transparent 70%
     ),
     radial-gradient(
       ellipse 40% 30% at 50% -4%,
-      rgb(247 248 248 / 0.035),
+      color-mix(in srgb, var(--foreground) 3.5%, transparent),
       transparent 70%
     );
 }
@@ -212,14 +506,14 @@
   background:
     radial-gradient(
       ellipse 70% 560px at 50% 260px,
-      rgb(120 150 181 / 0.06),
+      color-mix(in srgb, var(--primary) 6%, transparent),
       transparent 72%
     ),
     linear-gradient(
       to bottom,
       transparent,
-      rgb(255 255 255 / 0.012) 520px,
-      rgb(255 255 255 / 0.012) calc(100% - 360px),
+      color-mix(in srgb, var(--foreground) 1.2%, transparent) 520px,
+      color-mix(in srgb, var(--foreground) 1.2%, transparent) calc(100% - 360px),
       transparent
     );
 }
@@ -227,7 +521,7 @@
 .light-stage {
   background: radial-gradient(
     ellipse 50% 58% at 66% 52%,
-    rgb(120 150 181 / 0.085),
+    color-mix(in srgb, var(--primary) 8.5%, transparent),
     transparent 70%
   );
 }
@@ -236,12 +530,12 @@
   background:
     radial-gradient(
       ellipse 64% 78% at 50% 100%,
-      rgb(120 150 181 / 0.09),
+      color-mix(in srgb, var(--primary) 9%, transparent),
       transparent 70%
     ),
     radial-gradient(
       ellipse 36% 36% at 50% 100%,
-      rgb(247 248 248 / 0.03),
+      color-mix(in srgb, var(--foreground) 3%, transparent),
       transparent 70%
     );
 }
@@ -261,16 +555,16 @@
 .grain {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 180px 180px;
-  opacity: 0.035;
+  opacity: var(--grain-opacity);
 }
 
 /* Product showcase surface. */
 
 .product-frame {
   box-shadow:
-    0 0 0 1px rgb(255 255 255 / 0.06),
-    inset 0 1px 0 rgb(255 255 255 / 0.05),
-    0 40px 80px -24px rgb(0 0 0 / 0.8);
+    0 0 0 1px var(--border),
+    inset 0 1px 0 var(--border-subtle),
+    var(--frame-shadow);
 }
 
 /* Hero product shot. Final transforms live in custom properties so the

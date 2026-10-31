@@ -32,7 +32,7 @@ const steps: readonly Step[] = [
     number: "02",
     title: "Build the assessment",
     body: "That evidence becomes a task set in your project's domain, pitched at how deeply the topic appears in your code.",
-    meta: "Applied tier · 40 min",
+    meta: "Adept stage · 40 min",
     Panel: AssessmentPanel,
   },
   {

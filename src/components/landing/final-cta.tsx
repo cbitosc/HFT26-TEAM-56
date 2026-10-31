@@ -17,7 +17,7 @@ export function FinalCta() {
         />
         <div className="mt-10 flex justify-center">
           <Button size="lg" asChild>
-            <Link href="/get-started">Start your assessment</Link>
+            <Link href="/dashboard">Start your assessment</Link>
           </Button>
         </div>
       </Reveal>

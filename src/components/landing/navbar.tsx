@@ -7,6 +7,7 @@ import { Wordmark } from "@/components/brand/wordmark";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/landing/container";
 import { navLinks } from "@/components/landing/nav-links";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
@@ -61,7 +62,7 @@ export function Navbar() {
           className="rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
           onClick={close}
         >
-          <Wordmark className="text-[17px]" />
+          <Wordmark className="text-[25px]" />
         </Link>
 
         <nav
@@ -80,14 +81,15 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center justify-end gap-4">
+          <ThemeToggle className="-mx-1.5" />
           <Link
-            href="/sign-in"
+            href="/login"
             className="hidden rounded-sm text-[13px] text-muted-foreground transition-colors duration-150 outline-none hover:text-foreground focus-visible:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 sm:inline"
           >
             Sign in
           </Link>
           <Button size="sm" className="h-8 px-3 text-[13px]" asChild>
-            <Link href="/get-started">Get started</Link>
+            <Link href="/dashboard">Get started</Link>
           </Button>
           <Button
             variant="ghost"
@@ -125,12 +127,12 @@ export function Navbar() {
             </ul>
             <div className="mt-auto flex flex-col gap-3 pt-10">
               <Button size="lg" asChild>
-                <Link href="/get-started" onClick={close}>
+                <Link href="/dashboard" onClick={close}>
                   Get started
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <Link href="/sign-in" onClick={close}>
+                <Link href="/login" onClick={close}>
                   Sign in
                 </Link>
               </Button>

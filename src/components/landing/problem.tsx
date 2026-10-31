@@ -186,7 +186,7 @@ function Traditional() {
                 key={index}
                 className={cn(
                   "h-5 rounded-[3px]",
-                  result === "pass" ? "bg-white/[0.07]" : "bg-fail/35",
+                  result === "pass" ? "bg-foreground/[0.07]" : "bg-fail/35",
                 )}
               >
                 <span className="sr-only">

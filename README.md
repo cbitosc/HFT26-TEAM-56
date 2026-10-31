@@ -45,7 +45,7 @@ Vetted addresses these challenges through personalized assessments, deterministi
 | Adept | Medium | Multi-step implementations and Medium DSA | Enabled |
 | Master | Hard | Multi-file debugging, optimization, and Medium/Hard DSA | Enabled |
 
-Each assessment is designed to fit within a **60-minute evaluation window**.
+Each assessment has 12 questions in three sequential, separately timed stages, **60 minutes** in total: Novice 15 minutes, Adept 20 minutes, Master 25 minutes. Candidates see one stage (and one question) at a time and can't return to a submitted stage.
 
 ### Interactive Coding Workspace
 
@@ -282,7 +282,9 @@ Create `.env.local`:
 
 ```env
 NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+SUPABASE_SECRET_KEY=
 
 FEATHERLESS_API_KEY=
 FEATHERLESS_MODEL=
@@ -300,10 +302,14 @@ Never expose private API keys or privileged database credentials in client-side 
 ### Database Setup
 
 1. Create a Supabase project.
-2. Configure email/password authentication.
-3. Apply the migrations in `supabase/migrations`.
-4. Enable and configure Row Level Security.
-5. Add your Supabase credentials to `.env.local`.
+2. Enable the Google auth provider (Vetted uses Google OAuth only).
+3. Apply the migrations in `supabase/migrations` (creates `profiles` with Row Level Security).
+4. Add your Supabase credentials to `.env.local`.
+
+See [docs/authentication.md](docs/authentication.md) for step-by-step OAuth, redirect URL and local development setup.
+See [docs/database.md](docs/database.md) for the schema, access rules and the `resumes` storage bucket.
+See [docs/resume-analysis.md](docs/resume-analysis.md) for the résumé upload and AI analysis pipeline (Featherless).
+See [docs/assessment-generation.md](docs/assessment-generation.md) for assessment generation, the code sandbox and supported languages.
 
 ### Start Development Server
 

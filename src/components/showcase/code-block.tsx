@@ -90,7 +90,7 @@ export function CodeBlock({
                 key={index}
                 className={cn(
                   "flex gap-4 pr-4 pl-3",
-                  active && "bg-white/[0.025]",
+                  active && "bg-foreground/[0.025]",
                 )}
               >
                 <span
