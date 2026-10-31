@@ -28,8 +28,11 @@ export function Hero() {
           className="hero-rise mt-9 flex flex-wrap items-center gap-x-6 gap-y-4"
           style={{ animationDelay: "160ms" }}
         >
-          <Button size="lg" className="h-10 px-5" asChild>
+          <Button size="lg" className="signed-out-only h-10 px-5" asChild>
             <Link href="/dashboard">Get started</Link>
+          </Button>
+          <Button size="lg" className="signed-in-only h-10 px-5" asChild>
+            <Link href="/dashboard">Go to dashboard</Link>
           </Button>
           <ArrowLink href="#how-it-works">See how it works</ArrowLink>
         </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { authHintScript } from "@/lib/auth-hint";
 import { panelWidthScript } from "@/lib/layout";
 import { themeScript } from "@/lib/theme";
 import "./globals.css";
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: panelWidthScript }} />
+        <script dangerouslySetInnerHTML={{ __html: authHintScript }} />
       </head>
       <body className="flex min-h-full flex-col">{children}</body>
     </html>
