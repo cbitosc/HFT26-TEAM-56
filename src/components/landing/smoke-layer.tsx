@@ -20,7 +20,11 @@ export function SmokeLayer() {
     import("@/components/landing/smoke-scene")
       .then(({ createSmoke }) => {
         if (cancelled) return;
-        dispose = createSmoke(canvas, () => setReady(true));
+        dispose = createSmoke(
+          canvas,
+          () => setReady(true),
+          () => setReady(false),
+        );
       })
       .catch(() => {
         // Keep the CSS atmosphere.
@@ -29,6 +33,8 @@ export function SmokeLayer() {
     return () => {
       cancelled = true;
       dispose?.();
+      // Hidden until the next run draws, so a stale frame never shows.
+      setReady(false);
     };
   }, []);
 

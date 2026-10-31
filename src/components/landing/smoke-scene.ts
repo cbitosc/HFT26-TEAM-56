@@ -113,8 +113,16 @@ function compile(gl: WebGLRenderingContext, type: number, source: string) {
   return shader;
 }
 
-/** Throws if WebGL is unavailable; the CSS atmosphere underneath stays. */
-export function createSmoke(canvas: HTMLCanvasElement, onReady: () => void) {
+/**
+ * Throws if WebGL is unavailable; the CSS atmosphere underneath stays.
+ * `onLost` fires if the context is lost later, so the caller can hide the
+ * canvas: a lost canvas paints blank, not dark.
+ */
+export function createSmoke(
+  canvas: HTMLCanvasElement,
+  onReady: () => void,
+  onLost: () => void,
+) {
   const gl = canvas.getContext("webgl", {
     antialias: false,
     depth: false,
@@ -122,11 +130,14 @@ export function createSmoke(canvas: HTMLCanvasElement, onReady: () => void) {
     powerPreference: "low-power",
   });
   if (!gl) throw new Error("WebGL unavailable");
+  if (gl.isContextLost()) throw new Error("WebGL context lost");
 
   const program = gl.createProgram();
   if (!program) throw new Error("Program could not be created");
-  gl.attachShader(program, compile(gl, gl.VERTEX_SHADER, vertexSource));
-  gl.attachShader(program, compile(gl, gl.FRAGMENT_SHADER, fragmentSource));
+  const vertexShader = compile(gl, gl.VERTEX_SHADER, vertexSource);
+  const fragmentShader = compile(gl, gl.FRAGMENT_SHADER, fragmentSource);
+  gl.attachShader(program, vertexShader);
+  gl.attachShader(program, fragmentShader);
   gl.linkProgram(program);
   if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
     throw new Error("Program failed to link");
@@ -178,6 +189,12 @@ export function createSmoke(canvas: HTMLCanvasElement, onReady: () => void) {
   }
   window.addEventListener("pointermove", onPointerMove, { passive: true });
   document.documentElement.addEventListener("pointerleave", onPointerLeave);
+
+  function onContextLost() {
+    cancelAnimationFrame(frame);
+    onLost();
+  }
+  canvas.addEventListener("webglcontextlost", onContextLost);
 
   let frame = 0;
   let previous = performance.now();
@@ -232,6 +249,13 @@ export function createSmoke(canvas: HTMLCanvasElement, onReady: () => void) {
     resizeObserver.disconnect();
     window.removeEventListener("pointermove", onPointerMove);
     document.documentElement.removeEventListener("pointerleave", onPointerLeave);
-    gl.getExtension("WEBGL_lose_context")?.loseContext();
+    canvas.removeEventListener("webglcontextlost", onContextLost);
+    // Free what this run created but keep the context: Next.js keeps a page
+    // it navigates away from mounted (hidden) and reuses this same canvas on
+    // the way back, and a deliberately lost context would paint it blank.
+    gl.deleteBuffer(buffer);
+    gl.deleteProgram(program);
+    gl.deleteShader(vertexShader);
+    gl.deleteShader(fragmentShader);
   };
 }
